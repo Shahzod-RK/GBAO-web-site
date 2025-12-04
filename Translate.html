@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кастомный переводчик</title>
+<link rel="stylesheet" href="Translate.css">
+<style>
+  body { 
+    font-family: Arial, sans-serif; margin: 0; 
+    padding: 20px;
+    height: 100vh;
+    display:flex; 
+    justify-content:center; 
+    align-items:center; 
+    background:#f0f0f5;
+    background-image:url(Traback.png); 
+    background-repeat:no-repeat; background-size:cover;
+ }
+  .blocks { 
+    display:flex;
+    justify-content:space-between; 
+    align-items:center; 
+    width:100%;
+    max-width:1200px; 
+    gap:20px; 
+    height:70vh; 
+}
+  .block { 
+    flex:1; 
+    display:flex; 
+    flex-direction:column; 
+    align-items:center; 
+}
+  .language-selectors {
+    width:70%; 
+    margin-bottom:10px;
+}
+  select { 
+    width:100%; 
+    padding:10px; 
+    font-size:16px; 
+    border-radius:8px; 
+    border:1px solid #ccc; 
+}
+  textarea { 
+    width:70%; 
+    padding:15px; 
+    font-size:16px; 
+    border-radius:8px; 
+    border:1px solid hsl(0,0%,80%);
+    resize:none; 
+    height:400px; 
+}
+  .output { 
+    background:#fff; 
+    overflow-y:auto; 
+    white-space:pre-wrap; 
+}
+  .center-button-container { 
+    display:flex; 
+    justify-content:center; 
+    align-items:center; 
+    height:100%; 
+}
+  button { 
+    padding:15px 25px; 
+    font-size:16px; 
+    border-radius:8px; 
+    border:1px solid #000; 
+    cursor:pointer;
+    background-color:#000; 
+    color:#fff; 
+}
+  button:hover { 
+    background-color:#f0f0f0; 
+    color:#000; 
+}
+  @media(max-width:900px){
+    .blocks { flex-direction:column; height:auto; }
+    .center-button-container { height:auto; margin:20px 0; }
+    textarea, select { height:200px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blocks">
+  <div class="block">
+    <div class="language-selectors">
+      <select id="sourceLang">
+        <option value="russian">Русский</option>
+        <option value="dialect1">Шуганский диалект</option>
+        <option value="dialect2">upcoming soon</option>
+      </select>
+    </div>
+    <textarea id="inputText" placeholder="Введите текст..."></textarea>
+  </div>
+
+  <div class="center-button-container">
+    <button onclick="translateText()">Перевести</button>
+  </div>
+
+  <div class="block">
+    <div class="language-selectors">
+      <select id="targetLang">
+        <option value="russian">Русский</option>
+        <option value="dialect1">Шуганский диалект</option>
+        <option value="dialect2">upcoming soon</option>
+      </select>
+    </div>
+    <textarea id="outputText" readonly class="output" placeholder="Перевод будет здесь..."></textarea>
+  </div>
+</div>
+
+<script>
+const dictionary = {
+    "month": { "russian": "месяц", "dialect1": "mest", "dialect2": "" },
+    "week": { "russian": "неделя", "dialect1": "afta", "dialect2": "" },
+    "hour": { "russian": "час", "dialect1": "soat", "dialect2": "" },
+    "minute": { "russian": "минута", "dialect1": "minyt", "dialect2": "" },
+    "second": { "russian": "секунда", "dialect1": "secynd", "dialect2": "" },
+
+    "person": { "russian": "человек", "dialect1": "odam", "dialect2": "" },
+    "people": { "russian": "люди", "dialect1": "odamen", "dialect2": "" },
+
+    "man": { "russian": "мужчина", "dialect1": "chorek", "dialect2": "" },
+    "woman": { "russian": "женщина", "dialect1": "ghenek", "dialect2": "" },
+    "child": { "russian": "ребёнок", "dialect1": "dzolekak", "dialect2": "" },
+
+    "friend_male": { "russian": "друг", "dialect1": "oghno", "dialect2": "" },
+    "friend_female": { "russian": "подруга", "dialect1": "oghno", "dialect2": "" },
+
+    "family": { "russian": "семья", "dialect1": "semya", "dialect2": "" },
+    "mother": { "russian": "мама", "dialect1": "nan", "dialect2": "" },
+    "father": { "russian": "папа", "dialect1": "tat", "dialect2": "" },
+    "brother": { "russian": "брат", "dialect1": "verod", "dialect2": "" },
+    "sister": { "russian": "сестра", "dialect1": "йax", "dialect2": "" },
+
+    "son": { "russian": "сын", "dialect1": "poц", "dialect2": "" },
+    "daughter": { "russian": "дочь", "dialect1": "rezin", "dialect2": "" },
+
+    "life": { "russian": "жизнь", "dialect1": "zindage", "dialect2": "" },
+
+    "head": { "russian": "голова", "dialect1": "kil", "dialect2": "" },
+    "hand": { "russian": "рука", "dialect1": "thost", "dialect2": "" },
+    "leg": { "russian": "нога", "dialect1": "poth", "dialect2": "" },
+    "eye": { "russian": "глаз", "dialect1": "цem", "dialect2": "" },
+    "face": { "russian": "лицо", "dialect1": "piц", "dialect2": "" },
+    "body": { "russian": "тело", "dialect1": "telo", "dialect2": "" },
+
+    "house": { "russian": "дом", "dialect1": "chid", "dialect2": "" },
+    "apartment": { "russian": "квартира", "dialect1": "chid", "dialect2": "" },
+    "room": { "russian": "комната", "dialect1": "mala", "dialect2": "" },
+
+    "street": { "russian": "улица", "dialect1": "dargo", "dialect2": "" },
+    "city": { "russian": "город", "dialect1": "shar", "dialect2": "" },
+    "country": { "russian": "страна", "dialect1": "shar", "dialect2": "" },
+
+    "place": { "russian": "место", "dialect1": "joй", "dialect2": "" },
+    "world": { "russian": "мир", "dialect1": "zamin", "dialect2": "" },
+    "earth": { "russian": "земля", "dialect1": "zamin", "dialect2": "" },
+
+    "school": { "russian": "школа", "dialect1": "maktab", "dialect2": "" },
+    "university": { "russian": "университет", "dialect1": "", "dialect2": "" },
+
+    "work": { "russian": "работа", "dialect1": "kor", "dialect2": "" },
+    "task": { "russian": "задача", "dialect1": "misol", "dialect2": "" },
+    "question": { "russian": "вопрос", "dialect1": "savol", "dialect2": "" },
+    "answer": { "russian": "ответ", "dialect1": "otvet", "dialect2": "" },
+
+    "thought": { "russian": "мысль", "dialect1": "fikr", "dialect2": "" },
+    "idea": { "russian": "идея", "dialect1": "ideйa", "dialect2": "" },
+
+    "word": { "russian": "слово", "dialect1": "gap", "dialect2": "" },
+    "language": { "russian": "язык", "dialect1": "zev", "dialect2": "" },
+
+    "book": { "russian": "книга", "dialect1": "kitob", "dialect2": "" },
+    "notebook": { "russian": "тетрадь", "dialect1": "daftar", "dialect2": "" },
+    "letter": { "russian": "письмо", "dialect1": "pismo", "dialect2": "" },
+    "newspaper": { "russian": "газета", "dialect1": "gazet", "dialect2": "" },
+
+    "internet": { "russian": "интернет", "dialect1": "internet", "dialect2": "" },
+    "phone": { "russian": "телефон", "dialect1": "telefoy-n", "dialect2": "" },
+    "computer": { "russian": "компьютер", "dialect1": "kompюter", "dialect2": "" },
+
+    "game": { "russian": "игра", "dialect1": "boze", "dialect2": "" },
+    "music": { "russian": "музыка", "dialect1": "soz", "dialect2": "" },
+    "movie": { "russian": "фильм", "dialect1": "kino", "dialect2": "" },
+
+    "program": { "russian": "программа", "dialect1": "pragrama", "dialect2": "" },
+    "project": { "russian": "проект", "dialect1": "proect", "dialect2": "" },
+
+    "water": { "russian": "вода", "dialect1": "ghaц", "dialect2": "" },
+    "air": { "russian": "воздух", "dialect1": "avo", "dialect2": "" },
+    "fire": { "russian": "огонь", "dialect1": "йoц", "dialect2": "" },
+    "soil": { "russian": "земля", "dialect1": "zamin", "dialect2": "" },
+
+    "tree": { "russian": "дерево", "dialect1": "daraxt", "dialect2": "" },
+    "plant": { "russian": "растение", "dialect1": "sabzavot", "dialect2": "" },
+    "flower": { "russian": "цветок", "dialect1": "gul", "dialect2": "" },
+    "animal": { "russian": "животное", "dialect1": "aйvy-n", "dialect2": "" }
+};
+
+// Вспомог: сохранить заглавную букву
+function matchCapitalization(orig, translated) {
+  if (!orig) return translated;
+  // если первая буква в верхнем регистре — сделать так же
+  const first = orig.codePointAt(0);
+  const isUpper = orig[0] !== orig[0].toLowerCase();
+  if (isUpper) {
+    return translated[0].toUpperCase() + translated.slice(1);
+  }
+  return translated;
+}
+
+function translateWordToken(word, sourceLang, targetLang) {
+  const lower = word.toLowerCase();
+
+  // 1) сначала попробуем найти именно как entry[sourceLang]
+  for (const key in dictionary) {
+    const entry = dictionary[key];
+    if (entry[sourceLang] && entry[sourceLang].toLowerCase() === lower) {
+      // нашли — переводим в target
+      const res = entry[targetLang] || entry.russian || entry[sourceLang];
+      return matchCapitalization(word, res);
+    }
+  }
+
+  // 2) если не нашли — попробуем найти в любом языке (авто-детект слова)
+  for (const key in dictionary) {
+    const entry = dictionary[key];
+    for (const lang in entry) {
+      if (entry[lang] && entry[lang].toLowerCase() === lower) {
+        const res = entry[targetLang] || entry.russian || entry[lang];
+        return matchCapitalization(word, res);
+      }
+    }
+  }
+
+  // 3) не найдено — вернуть оригинал
+  return word;
+}
+
+function translateText() {
+  const text = document.getElementById('inputText').value;
+  const sourceLang = document.getElementById('sourceLang').value;
+  const targetLang = document.getElementById('targetLang').value;
+
+  if (!text) {
+    document.getElementById('outputText').value = "";
+    return;
+  }
+
+  // Заменяем только последовательности букв (Unicode) — остальные символы оставляем (пунктуация, пробелы)
+  // Используем replace с регулярным выражением \p{L}+ (любой буквенный символ): флаг u и g
+  const translated = text.replace(/\p{L}+/gu, (match) => {
+    return translateWordToken(match, sourceLang, targetLang);
+  });
+
+  document.getElementById('outputText').value = translated;
+}
+</script>
+
+</body>
+</html>

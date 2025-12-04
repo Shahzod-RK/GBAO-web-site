@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('Reportback.jpg') center/cover no-repeat fixed;
+}
+
+/* Центрируем блок */
+.error-section {
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Заголовок */
+.error-section h2 {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Текст */
+.error-section p {
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Форма */
+.error-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.error-section label {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+.error-section input,
+.error-section textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid
+}

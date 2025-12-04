@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link rel="stylesheet" href="Report.css">
+</head>
+<body>
+    <section id="report-error" class="error-section">
+    <h2>Сообщите об ошибке</h2>
+    <p>Если вы нашли ошибку или некорректную информацию на сайте, пожалуйста, сообщите нам об этом.</p>
+
+    <form action="https://formsubmit.co/shahzodrahimzoda123@gmail.com" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="<input type="hidden" name="_next" value="Report.html">
+
+        <label for="page">Страница с ошибкой:</label>
+        <input type="text" id="page" name="page" placeholder="Например: /history.html" required>
+
+        <label for="description">Описание ошибки:</label>
+        <textarea id="description" name="description" rows="5" placeholder="Опишите проблему..." required></textarea>
+
+        <button type="submit">Отправить</button>
+    </form>
+</section>
+
+</body>
+</html> 

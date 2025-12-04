@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+</head>
+<body>
+<a href="file:///C:/Users/khuri/OneDrive/Desktop/IT%20club/Pamir/ancient%20pamir.html">
+  <!-- Блок 1: Древний Памир -->
+  <div class="history-block" style="background-image: url('ancient-pamir.png');">
+    <div class="history-text">
+      <h2>Древний Памир</h2>
+      <p>Памир был заселён людьми тысячи лет назад. Здесь находили древние стоянки, керамику и следы пастушеских культур. Эти горы служили естественным мостом между Востоком и Западом.</p>
+    </div>
+  </div>
+</a>
+<a href="file:///C:/Users/khuri/OneDrive/Desktop/IT%20club/Pamir/Pamir%20Silk%20road.html"> 
+  <!-- Блок 2: Шёлковый путь -->
+  <div class="history-block" style="background-image: url('silk-road.png');"> 
+    <div class="history-text">
+      <h2>Памир на Великом Шёлковом пути</h2>
+      <p>Через Памир проходили маршруты Великого Шёлкового пути. Караванщики несли шёлк, специи, металлы, а также знания и традиции. Памир стал местом встречи культур и цивилизаций.</p>
+    </div>
+  </div>
+     </a>
+
+<a href="file:///C:/Users/khuri/OneDrive/Desktop/IT%20club/Pamir/Ancient%20empires.html">
+  <!-- Блок 3: Древние империи -->
+  <div class="history-block" style="background-image: url('ancient-empire.png');">
+    <div class="history-text">
+      <h2>Древние государства и империи</h2>
+      <p>В разные эпохи Памир входил в сферу влияния Кушанского царства, Сасанидов, Тибетской империи и Китая. Памирские долины часто служили стратегическими пунктами для этих держав.</p>
+    </div>
+  </div>
+</a>
+<a href="file:///C:/Users/khuri/OneDrive/Desktop/IT%20club/Pamir/searches.html">
+  <!-- Блок 4: Исследователи -->
+  <div class="history-block" style="background-image: url('explorers.png');">
+    <div class="history-text">
+      <h2>Эпоха Великих Географических исследований</h2>
+      <p>В XIX веке Памир стал объектом интереса исследователей: Грумм-Гржимайло, Пржевальский, Федченко и другие описывали природу, климат и жителей региона. Тогда же Памир начал появляться на мировых картах.</p>
+    </div>
+  </div>
+</a>
+<a href="file:///C:/Users/khuri/OneDrive/Desktop/IT%20club/Pamir/modern%20pamir.html">
+  <!-- Блок 5: Современный Памир -->
+  <div class="history-block" style="background-image: url('modern-pamir.png');">
+    <div class="history-text">
+      <h2>Современный Памир</h2>
+      <p>Сегодня Памир — уникальный регион Таджикистана. Здесь сохранились древние языки, обычаи, музыка и архитектура кишлаков. Памир привлекает путешественников со всего мира своей природой и историей.</p>
+    </div>
+  </div>
+</a>
+</section>
+
+<!-- CSS -->
+<style>
+a {
+  text-decoration: none; /* убирает подчеркивание */
+  color: inherit; /* сохраняет цвет текста блока */
+  display: block; /* чтобы весь блок был кликабельным */
+}
+
+.history-block {
+  position: relative;
+  color: white;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  margin: 20px 0;
+  transition: transform 0.3s ease; /* плавный переход */
+}
+
+.history-block:hover {
+  transform: scale(0.97); /* немного уменьшаем блок */
+}
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  #history {
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 36px;
+    margin: 40px 0;
+  }
+
+  .history-block {
+    position: relative;
+    color: white;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    margin: 20px 0;
+  }
+
+  .history-block::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* затемнение для читаемости текста */
+    z-index: 1;
+  }
+
+  .history-text {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    padding: 20px;
+    text-align: left;
+  }
+
+  .history-text h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  .history-text p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  /* Адаптив для мобильных */
+  @media (max-width: 768px) {
+    .history-block {
+      height: 300px;
+    }
+
+    .history-text h2 {
+      font-size: 22px;
+    }
+
+    .history-text p {
+      font-size: 16px;
+    }
+  }
+</style>
+
+</body>
+</html>
