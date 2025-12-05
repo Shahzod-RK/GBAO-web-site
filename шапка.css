@@ -1,23 +1,4 @@
-    body {
-        margin: 0;
-        font-family: Arial;
-        background-image: url("шапка.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: flex;
-        padding: 100 20px;
-        z-index: 1000;
-    }
-
-    /*0 Ссылки в меню */
-    nav a {
-        color:  rgb(255, 255, 255);
-        margin: 0 115px;
-        text-decoration: none;
-        font-size: 18px;        
-    
-    }
-
+/* ОБЩИЕ СТИЛИ */
 body {
     margin: 0;
     font-family: Arial;
@@ -28,106 +9,22 @@ body {
 .bg {
     position: relative;
     height: 100vh;
-    background: url("шапка.png") center/cover no-repeat;
+    background: url("небо.png") center/cover no-repeat;
     overflow: hidden;
 }
 
-/* ОБЩЕЕ ДЛЯ ТУМАНА */
-.fog-layer {
-    position: absolute;
-    inset: 0;
-    background: url("https://i.imgur.com/8IuucQZ.png") repeat-x;
-    opacity: 0.4;
-    animation: fogMove 60s linear infinite;
-    pointer-events: none;
-}
-
-/* ВТОРОЙ СЛОЙ */
-.fog2 {
-    opacity: 0.25;
-    animation-duration: 120s;
-    transform: scale(1.2);
-}
-
-@keyframes fogMove {
-    from { transform: translateX(-20%); }
-    to   { transform: translateX(20%); }
-}
-
-/* ТЕКСТ ЦЕНТР */
-.welcome {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 60px;
-    font-weight: bold;
-    text-shadow: 0 0 20px black;
-}
-
-
-
-
-    /* планшеты */
-    @media (max-width: 768px) {
-        .header {
-            height: 140px;
-        }
-        .content {
-            margin-top: 160px;
-        }
-    }
-
-    /* телефоны */
-    @media (max-width: 480px) {
-        .header {
-            height: 120px;
-        }
-        .content {
-            margin-top: 140px;
-        }
-    }
-/* Заголовок по центру */
-.welcome {
-    position: absolute;
-    top: 50%;                 /* центр по вертикали */
-    left: 50%;                /* центр по горизонтали */
-    transform: translate(-50%, -50%);
-    color: white;             /* белый текст */
-    font-size: 60px;          /* большой текст */
-    font-weight: bold;
-    text-shadow: 0 0 20px black; /* лёгкая тень для видимости */
-}
-
-.welcome1 {
-    position: absolute;
-    top: 70%;                 /* центр по вертикали */
-    left: 50%;                /* центр по горизонтали */
-    transform: translate(-50%, -50%);
-    color: white;             /* белый текст */
-    font-weight: bold;
-    text-shadow: 0 0 20px black; /* лёгкая тень для видимости */
-}
-.bg {
-    position: relative;
-    height: 100vh;
-    background: url("небо.png") center/cover no-repeat; /* фон неба */
-    overflow: hidden;
-}
-
-/* Слой с горами */
+/* ГОРЫ */
 .mountains {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 50%; /* регулируй высоту гор */
-    background: url("горы.png") bottom/cover no-repeat; /* изображение гор */
-    z-index: 2; /* выше фона, ниже текста, если нужно */
+    height: 45vh;
+    background: url("горы.png") bottom/cover no-repeat;
+    z-index: 2;
 }
 
-/* Туман */
+/* ОБЩИЕ СЛОИ ТУМАНА */
 .fog-layer {
     position: absolute;
     inset: 0;
@@ -135,7 +32,7 @@ body {
     opacity: 0.4;
     animation: fogMove 60s linear infinite;
     pointer-events: none;
-    z-index: 3; /* поверх гор */
+    z-index: 3;
 }
 
 .fog2 {
@@ -144,17 +41,23 @@ body {
     transform: scale(1.2);
 }
 
-/* Текст */
+/* АНИМАЦИЯ ТУМАНА */
+@keyframes fogMove {
+    from { transform: translateX(-20%); }
+    to   { transform: translateX(20%); }
+}
+
+/* ТЕКСТ */
 .welcome {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 60px;
+    font-size: clamp(25px, 6vw, 60px);  /* адаптив */
     font-weight: bold;
     text-shadow: 0 0 20px black;
-    z-index: 1; /* текст частично позади гор */
+    z-index: 1;
 }
 
 .welcome1 {
@@ -163,7 +66,39 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+    font-size: clamp(16px, 3.5vw, 28px);
     font-weight: bold;
     text-shadow: 0 0 20px black;
-    z-index: 4; /* над всеми слоями */
+    z-index: 4;
+}
+
+/* МЕНЮ */
+nav a {
+    color: rgb(255, 255, 255);
+    margin: 0 40px;
+    text-decoration: none;
+    font-size: clamp(14px, 2vw, 18px);
+}
+
+/* АДАПТАЦИЯ — ПЛАНШЕТЫ */
+@media (max-width: 768px) {
+    .mountains {
+        height: 40vh;
+    }
+}
+
+/* АДАПТАЦИЯ — ТЕЛЕФОНЫ */
+@media (max-width: 480px) {
+
+    nav a {
+        margin: 0 15px;
+    }
+
+    .mountains {
+        height: 35vh;
+    }
+
+    .welcome1 {
+        top: 75%;
+    }
 }
