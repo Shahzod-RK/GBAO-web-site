@@ -1,3 +1,11 @@
+/* Сброс и общий стиль */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Фоновый блок */
 .bg {
     position: relative;
     height: 100vh;
@@ -15,23 +23,6 @@
     z-index: 2;
 }
 
-/* Туман */
-.fog-layer {
-    position: absolute;
-    inset: 0;
-    background: url("https://i.imgur.com/8IuucQZ.png") repeat-x;
-    opacity: 0.4;
-    animation: fogMove 60s linear infinite;
-    pointer-events: none;
-    z-index: 3;
-}
-
-.fog2 {
-    opacity: 0.25;
-    animation-duration: 120s;
-    transform: scale(1.2);
-}
-
 /* Текст */
 .welcome {
     position: absolute;
@@ -39,10 +30,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 8vw;
+    font-size: 8vw; /* размер текста зависит от ширины экрана */
     font-weight: bold;
     text-shadow: 0 0 20px black;
-    z-index: 5; /* текст поверх всего */
+    z-index: 3; /* текст поверх гор */
     text-align: center;
 }
 
@@ -52,9 +43,39 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 4vw;
+    font-size: 4vw; /* размер текста зависит от ширины экрана */
     font-weight: bold;
     text-shadow: 0 0 20px black;
-    z-index: 5; /* текст поверх всего */
+    z-index: 3;
     text-align: center;
+}
+
+/* Навигация */
+nav {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+    z-index: 5;
+}
+
+nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 4vw;
+}
+
+/* Адаптация для маленьких экранов */
+@media (max-width: 480px) {
+    .welcome {
+        font-size: 10vw;
+    }
+    .welcome1 {
+        font-size: 5vw;
+    }
+    nav a {
+        display: block;
+        margin: 10px 0;
+        font-size: 5vw;
+    }
 }
