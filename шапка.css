@@ -1,38 +1,29 @@
-    body {
-        margin: 0;
-        font-family: Arial;
-        background-image: url("шапка.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: flex;
-        padding: 100 20px;
-        z-index: 1000;
-    }
-
-    /*0 Ссылки в меню */
-    nav a {
-        color:  rgb(255, 255, 255);
-        margin: 0 115px;
-        text-decoration: none;
-        font-size: 18px;        
-    
-    }
-
+/* Сброс и общий стиль */
 body {
     margin: 0;
-    font-family: Arial;
-    overflow: hidden;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 
-/* ФОНОВЫЙ БЛОК */
+/* Фоновый блок */
 .bg {
     position: relative;
     height: 100vh;
-    background: url("шапка.png") center/cover no-repeat;
-    overflow: hidden;
+    background: url("небо.png") center/cover no-repeat;
 }
 
-/* ОБЩЕЕ ДЛЯ ТУМАНА */
+/* Горы */
+.mountains {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: url("горы.png") bottom/cover no-repeat;
+    z-index: 2;
+}
+
+/* Туман */
 .fog-layer {
     position: absolute;
     inset: 0;
@@ -40,9 +31,9 @@ body {
     opacity: 0.4;
     animation: fogMove 60s linear infinite;
     pointer-events: none;
+    z-index: 3;
 }
 
-/* ВТОРОЙ СЛОЙ */
 .fog2 {
     opacity: 0.25;
     animation-duration: 120s;
@@ -54,116 +45,59 @@ body {
     to   { transform: translateX(20%); }
 }
 
-/* ТЕКСТ ЦЕНТР */
-.welcome {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 60px;
-    font-weight: bold;
-    text-shadow: 0 0 20px black;
-}
-
-
-
-
-    /* планшеты */
-    @media (max-width: 768px) {
-        .header {
-            height: 140px;
-        }
-        .content {
-            margin-top: 160px;
-        }
-    }
-
-    /* телефоны */
-    @media (max-width: 480px) {
-        .header {
-            height: 120px;
-        }
-        .content {
-            margin-top: 140px;
-        }
-    }
-/* Заголовок по центру */
-.welcome {
-    position: absolute;
-    top: 50%;                 /* центр по вертикали */
-    left: 50%;                /* центр по горизонтали */
-    transform: translate(-50%, -50%);
-    color: white;             /* белый текст */
-    font-size: 60px;          /* большой текст */
-    font-weight: bold;
-    text-shadow: 0 0 20px black; /* лёгкая тень для видимости */
-}
-
-.welcome1 {
-    position: absolute;
-    top: 70%;                 /* центр по вертикали */
-    left: 50%;                /* центр по горизонтали */
-    transform: translate(-50%, -50%);
-    color: white;             /* белый текст */
-    font-weight: bold;
-    text-shadow: 0 0 20px black; /* лёгкая тень для видимости */
-}
-.bg {
-    position: relative;
-    height: 100vh;
-    background: url("небо.png") center/cover no-repeat; /* фон неба */
-    overflow: hidden;
-}
-
-/* Слой с горами */
-.mountains {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%; /* регулируй высоту гор */
-    background: url("горы.png") bottom/cover no-repeat; /* изображение гор */
-    z-index: 2; /* выше фона, ниже текста, если нужно */
-}
-
-/* Туман */
-.fog-layer {
-    position: absolute;
-    inset: 0;
-    background: url("https://i.imgur.com/8IuucQZ.png") repeat-x;
-    opacity: 0.4;
-    animation: fogMove 60s linear infinite;
-    pointer-events: none;
-    z-index: 3; /* поверх гор */
-}
-
-.fog2 {
-    opacity: 0.25;
-    animation-duration: 120s;
-    transform: scale(1.2);
-}
-
 /* Текст */
 .welcome {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 60px;
+    font-size: 8vw; /* размер текста зависит от ширины экрана */
     font-weight: bold;
     text-shadow: 0 0 20px black;
-    z-index: 1; /* текст частично позади гор */
+    z-index: 4;
+    text-align: center;
 }
 
 .welcome1 {
     position: absolute;
-    top: 70%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+    font-size: 4vw; /* размер текста зависит от ширины экрана */
     font-weight: bold;
     text-shadow: 0 0 20px black;
-    z-index: 4; 
+    z-index: 4;
+    text-align: center;
+}
+
+/* Навигация */
+nav {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+    z-index: 5;
+}
+
+nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 4vw; /* автоматически подстраивается */
+}
+
+/* Адаптация для маленьких экранов */
+@media (max-width: 480px) {
+    .welcome {
+        font-size: 10vw;
+    }
+    .welcome1 {
+        font-size: 5vw;
+    }
+    nav a {
+        display: block;
+        margin: 10px 0;
+        font-size: 5vw;
+    }
 }
