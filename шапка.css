@@ -1,169 +1,66 @@
-    body {
-        margin: 0;
-        font-family: Arial;
-        background-image: url("шапка.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: flex;
-        padding: 100 20px;
-        z-index: 1000;
-    }
-
-    /*0 Ссылки в меню */
-    nav a {
-        color:  rgb(255, 255, 255);
-        margin: 0 115px;
-        text-decoration: none;
-        font-size: 18px;        
-    
-    }
-
-body {
-    margin: 0;
-    font-family: Arial;
-    overflow: hidden;
+/* Контейнер для центрирования и ограничения ширины */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* ФОНОВЫЙ БЛОК */
-.bg {
-    position: relative;
-    height: 100vh;
-    background: url("шапка.png") center/cover no-repeat;
-    overflow: hidden;
+/* Гибкая сетка для элементов (карточки, блоки и т. д.) */
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-/* ОБЩЕЕ ДЛЯ ТУМАНА */
-.fog-layer {
-    position: absolute;
-    inset: 0;
-    background: url("https://i.imgur.com/8IuucQZ.png") repeat-x;
-    opacity: 0.4;
-    animation: fogMove 60s linear infinite;
-    pointer-events: none;
-}
-
-/* ВТОРОЙ СЛОЙ */
-.fog2 {
-    opacity: 0.25;
-    animation-duration: 120s;
-    transform: scale(1.2);
-}
-
-@keyframes fogMove {
-    from { transform: translateX(-20%); }
-    to   { transform: translateX(20%); }
-}
-
-/* ТЕКСТ ЦЕНТР */
-.welcome {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 60px;
-    font-weight: bold;
-    text-shadow: 0 0 20px black;
-}
-
-
-
-
-    /* планшеты */
-    @media (max-width: 768px) {
-        .header {
-            height: 140px;
-        }
-        .content {
-            margin-top: 160px;
-        }
-    }
-
-    /* телефоны */
-    @media (max-width: 480px) {
-        .header {
-            height: 120px;
-        }
-        .content {
-            margin-top: 140px;
-        }
-    }
-/* Заголовок по центру */
-.welcome {
-    position: absolute;
-    top: 50%;                 /* центр по вертикали */
-    left: 50%;                /* центр по горизонтали */
-    transform: translate(-50%, -50%);
-    color: white;             /* белый текст */
-    font-size: 60px;          /* большой текст */
-    font-weight: bold;
-    text-shadow: 0 0 20px black; /* лёгкая тень для видимости */
-}
-
-.welcome1 {
-    position: absolute;
-    top: 70%;                 /* центр по вертикали */
-    left: 50%;                /* центр по горизонтали */
-    transform: translate(-50%, -50%);
-    color: white;             /* белый текст */
-    font-weight: bold;
-    text-shadow: 0 0 20px black; /* лёгкая тень для видимости */
-}
-.bg {
-    position: relative;
-    height: 100vh;
-    background: url("небо.png") center/cover no-repeat; /* фон неба */
-    overflow: hidden;
-}
-
-/* Слой с горами */
-.mountains {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%; /* регулируй высоту гор */
-    background: url("горы.png") bottom/cover no-repeat; /* изображение гор */
-    z-index: 2; /* выше фона, ниже текста, если нужно */
-}
-
-/* Туман */
-.fog-layer {
-    position: absolute;
-    inset: 0;
-    background: url("https://i.imgur.com/8IuucQZ.png") repeat-x;
-    opacity: 0.4;
-    animation: fogMove 60s linear infinite;
-    pointer-events: none;
-    z-index: 3; /* поверх гор */
-}
-
-.fog2 {
-    opacity: 0.25;
-    animation-duration: 120s;
-    transform: scale(1.2);
+/* Пример карточки или элемента */
+.card {
+    flex: 1 1 calc(33.333% - 20px);
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Текст */
-.welcome {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 60px;
-    font-weight: bold;
-    text-shadow: 0 0 20px black;
-    z-index: 1; /* текст частично позади гор */
+p, h1, h2, h3 {
+    line-height: 1.4;
+    margin-bottom: 10px;
 }
 
-.welcome1 {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-weight: bold;
-    text-shadow: 0 0 20px black;
-    z-index: 4; 
+/* --------------------------------------------- */
+/*                Responsive Mobile              */
+/* --------------------------------------------- */
+
+/* Планшеты */
+@media (max-width: 992px) {
+    .card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+/* Телефоны */
+@media (max-width: 600px) {
+    .container {
+        width: 94%;
+    }
+
+    .flex {
+        gap: 15px;
+    }
+
+    .card {
+        flex: 1 1 100%;
+        padding: 16px;
+    }
+
+    p, h1, h2, h3 {
+        font-size: 1rem;
+    }
+}
+
+/* Очень маленькие телефоны */
+@media (max-width: 380px) {
+    .card {
+        padding: 14px;
+    }
 }
