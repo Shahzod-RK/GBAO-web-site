@@ -14,21 +14,21 @@ body {
 /* МЕНЮ */
 nav {
     display: flex;
-    flex-wrap: wrap;     /* позволяет перенос ссылок */
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;           /* расстояние между ссылками */
+    gap: 20px;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    font-size: clamp(14px, 2vw, 18px); /* адаптивный размер */
+    font-size: clamp(14px, 2vw, 18px);
 }
 
-/* ТЕКСТ В ЦЕНТРЕ */
+/* ТЕКСТ */
 .welcome {
     color: white;
-    font-size: clamp(30px, 6vw, 60px); /* адаптив */
+    font-size: clamp(30px, 6vw, 60px);
     font-weight: bold;
     text-shadow: 0 0 20px black;
     text-align: center;
