@@ -1,0 +1,35 @@
+/* --- Адаптивность для мобильных устройств --- */
+@media(max-width: 600px) {
+  .blocks { 
+    flex-direction: column; 
+    height: auto; 
+    gap: 15px; 
+  }
+
+  .block {
+    width: 100%;
+    align-items: center;
+  }
+
+  textarea, select {
+    width: 90%;
+    font-size: 14px;
+    padding: 8px;
+    height: 150px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .center-button-container {
+    width: 100%;
+    margin: 15px 0;
+    justify-content: center;
+  }
+
+  .language-selectors {
+    width: 90%;
+  }
+}
