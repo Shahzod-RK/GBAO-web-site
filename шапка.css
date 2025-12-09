@@ -23,32 +23,35 @@
 }
 
 /* ==== ТЕКСТ ==== */
-/* ==== ТЕКСТ ==== */
 .welcome {
     position: absolute;
-    top: 45%;                  /* немного выше */
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: clamp(24px, 8vw, 60px); /* минимум 24px, максимум 60px */
+    font-size: clamp(20px, 8vw, 60px);
     font-weight: bold;
-    text-shadow: 0 0 20px black;
+    text-shadow: 0 0 30px black;
     z-index: 3;
+    white-space: nowrap;
     text-align: center;
+    width: max-content;
 }
 
+/* --- Основной стиль welcome1 --- */
 .welcome1 {
     position: absolute;
-    top: 60%;                  /* ниже основного заголовка */
+    top: 60%; /* ниже welcome */
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: clamp( 10px, 4vw, 24px); /* минимум 16px, максимум 40px */
+    font-size: clamp(12px, 4vw, 26px);
     font-weight: bold;
     text-shadow: 0 0 20px black;
     z-index: 3;
+    white-space: nowrap;     /* текст точно не переносится */
     text-align: center;
-    white-space: nowrap;
+    width: 100%;             /* строка гарантированно помещается */
 }
 
 
@@ -71,25 +74,18 @@ nav a {
 /* ==== АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ ==== */
 @media (max-width: 480px) {
 
-    .nav {
-        gap: 12px;         /* маленькие расстояния между ссылками */
-        padding: 8px 0;    /* меньший отступ */
-    }
-
-    .nav a {
-        font-size: 3vw;    /* адаптивный размер текста */
-        padding: 4px;
-    }
-
     .welcome {
-        font-size: 9vw;
-        top: 42%;
+        font-size: clamp(16px, 10vw, 42px);
+        top: 40%;          /* чуть выше для маленького экрана */
     }
 
     .welcome1 {
-        font-size: 2vw;
-        top: 60%;
+        font-size: clamp(10px, 5vw, 20px); 
+        top: 58%;         /* текст поднимаем выше */
+        width: 100%;      /* не переносится */
+        white-space: nowrap;
     }
+
 }
 
 /* ==== АДАПТАЦИЯ ДЛЯ ПЛАНШЕТОВ ==== */
@@ -99,6 +95,7 @@ nav a {
         font-size: 3vw;
     }
 }
+
 
 
 
