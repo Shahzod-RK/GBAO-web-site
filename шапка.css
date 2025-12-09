@@ -69,13 +69,15 @@ nav a {
 
 /* ==== АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ ==== */
 @media (max-width: 480px) {
-     nav {
-        padding: 5px 0; /* ← меньший отступ сверху/снизу */
+
+    .nav {
+        gap: 12px;         /* маленькие расстояния между ссылками */
+        padding: 8px 0;    /* меньший отступ */
     }
-    nav a {
-        display: inline-block;
-        margin: 5px 0;
-        font-size: 5vw; /* увеличенный адаптивный текст */
+
+    .nav a {
+        font-size: 4vw;    /* адаптивный размер текста */
+        padding: 4px;
     }
 
     .welcome {
@@ -96,5 +98,6 @@ nav a {
         font-size: 3vw;
     }
 }
+
 
 
