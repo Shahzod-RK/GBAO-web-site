@@ -11,16 +11,21 @@
     align-items: center;
   }
 
-  textarea, select {
-    width: 90%;
-    font-size: 14px;
-    padding: 8px;
-    height: 150px;
+  select {
+    font-size: 12px;       /* меньше текста */
+    padding: 5px 8px;      /* тоньше кнопки */
+    border-radius: 5px;    /* меньше скругление */
+  }
+
+  textarea {
+    font-size: 14px;       /* чуть меньше текста в поле */
+    padding: 8px;          /* меньше отступы */
+    height: 150px;         /* компактнее */
   }
 
   button {
-    padding: 10px 15px;
-    font-size: 14px;
+    font-size: 14px;       /* меньше текста на кнопке */
+    padding: 8px 12px;     /* меньше кнопка */
   }
 
   .center-button-container {
@@ -33,3 +38,4 @@
     width: 90%;
   }
 }
+
