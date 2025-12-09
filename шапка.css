@@ -80,8 +80,8 @@ nav a {
     }
 
     .welcome1 {
-        font-size: clamp(7px, 3.5vw, 14px); 
-        top: 52%;         /* текст поднимаем выше */
+        font-size: clamp(5px, 3.5vw, 12px); 
+        top: 45%;         /* текст поднимаем выше */
         width: 100%;      /* не переносится */
         white-space: nowrap;
     }
@@ -95,6 +95,7 @@ nav a {
         font-size: 3vw;
     }
 }
+
 
 
 
