@@ -1,41 +1,53 @@
-/* --- Адаптивность для мобильных устройств --- */
+/* --- Дизайн для мобильных телефонов --- */
 @media(max-width: 600px) {
-  .blocks { 
-    flex-direction: column; 
-    height: auto; 
-    gap: 15px; 
+  body {
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .blocks {
+    flex-direction: column;   /* вертикально */
+    width: 100%;
+    height: auto;
+    gap: 15px;
   }
 
   .block {
     width: 100%;
-    align-items: center;
+    align-items: stretch;     /* растягиваем на всю ширину */
+  }
+
+  .language-selectors {
+    width: 50%;               /* компактные селекты */
+    margin: 5px auto;
   }
 
   select {
-    font-size: 12px;       /* меньше текста */
-    padding: 5px 8px;      /* тоньше кнопки */
-    border-radius: 5px;    /* меньше скругление */
+    width: 100%;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 5px;
   }
 
   textarea {
-    font-size: 14px;       /* чуть меньше текста в поле */
-    padding: 8px;          /* меньше отступы */
-    height: 150px;         /* компактнее */
-  }
-
-  button {
-    font-size: 14px;       /* меньше текста на кнопке */
-    padding: 8px 12px;     /* меньше кнопка */
+    width: 100%;              /* поле на всю ширину */
+    font-size: 14px;
+    padding: 10px;
+    height: 200px;
   }
 
   .center-button-container {
     width: 100%;
-    margin: 15px 0;
+    display: flex;
     justify-content: center;
+    margin: 10px 0;
   }
 
-  .language-selectors {
-    width: 90%;
+  button {
+    width: 80%;               /* кнопка почти на всю ширину */
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 8px;
   }
 }
-
