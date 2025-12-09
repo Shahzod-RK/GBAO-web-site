@@ -48,6 +48,7 @@
     text-shadow: 0 0 20px black;
     z-index: 3;
     text-align: center;
+    white-space: nowrap;
 }
 
 
@@ -98,6 +99,7 @@ nav a {
         font-size: 3vw;
     }
 }
+
 
 
 
