@@ -76,17 +76,17 @@ nav a {
     }
 
     .nav a {
-        font-size: 4vw;    /* адаптивный размер текста */
+        font-size: 3.5vw;    /* адаптивный размер текста */
         padding: 4px;
     }
 
     .welcome {
-        font-size: 10vw;
+        font-size: 9vw;
         top: 42%;
     }
 
     .welcome1 {
-        font-size: 6vw;
+        font-size: 4vw;
         top: 60%;
     }
 }
@@ -98,6 +98,7 @@ nav a {
         font-size: 3vw;
     }
 }
+
 
 
 
