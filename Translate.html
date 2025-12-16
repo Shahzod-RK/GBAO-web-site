@@ -4,91 +4,120 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Кастомный переводчик</title>
-<link rel="stylesheet" href="Translate.css">
 <style>
-  body { 
-    font-family: Arial, sans-serif; margin: 0; 
-    padding: 20px;
-    height: 100vh;
-    display:flex; 
-    justify-content:center; 
-    align-items:center; 
-    background:#f0f0f5;
-    background-image:url(Traback.png); 
-    background-repeat:no-repeat; background-size:cover;
- }
-  .blocks { 
-    display:flex;
-    justify-content:space-between; 
-    align-items:center; 
-    width:100%;
-    max-width:1200px; 
-    gap:20px; 
-    height:70vh; 
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+    background-image: url(Traback.png);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-  .block { 
-    flex:1; 
-    display:flex; 
-    flex-direction:column; 
-    align-items:center; 
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
-  .language-selectors {
-    width:70%; 
-    margin-bottom:10px;
+
+/* Селекторы языка */
+.language-selectors {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
-  select { 
-    width:100%; 
-    padding:10px; 
-    font-size:16px; 
-    border-radius:8px; 
-    border:1px solid #ccc; 
+
+.language-selectors select {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
-  textarea { 
-    width:70%; 
-    padding:15px; 
-    font-size:16px; 
-    border-radius:8px; 
-    border:1px solid hsl(0,0%,80%);
-    resize:none; 
-    height:400px; 
+
+/* Поля ввода и вывода */
+textarea {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: none;
+    min-height: 120px;
 }
-  .output { 
-    background:#fff; 
-    overflow-y:auto; 
-    white-space:pre-wrap; 
+
+/* Кнопка перевода */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #4285F4;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 5px;
 }
-  .center-button-container { 
-    display:flex; 
-    justify-content:center; 
-    align-items:center; 
-    height:100%; 
+
+button:hover {
+    background-color: #3367D6;
 }
-  button { 
-    padding:15px 25px; 
-    font-size:16px; 
-    border-radius:8px; 
-    border:1px solid #000; 
-    cursor:pointer;
-    background-color:#000; 
-    color:#fff; 
+
+/* Блоки текста */
+.block {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
-  button:hover { 
-    background-color:#f0f0f0; 
-    color:#000; 
+
+/* Переводной текст */
+.output {
+    background: #fff;
+    overflow-y: auto;
+    white-space: pre-wrap;
 }
-  @media(max-width:900px){
-    .blocks { flex-direction:column; height:auto; }
-    .center-button-container { height:auto; margin:20px 0; }
-    textarea, select { height:200px; }
-  }
+
+/* Иконка обмена языками */
+.swap-button {
+    align-self: center;
+    margin: 5px 0;
+    background: #f1f3f4;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swap-button:hover {
+    background: #e0e0e0;
+}
+
+/* Мобильная оптимизация для очень маленьких экранов */
+@media(max-width: 360px){
+    textarea { font-size: 12px; padding: 8px; min-height: 100px; }
+    select { font-size: 12px; padding: 6px; }
+    button { font-size: 14px; padding: 10px; }
+}
 </style>
 </head>
 <body>
 
-<div class="blocks">
+<div class="container">
   <div class="block">
     <div class="language-selectors">
       <select id="sourceLang">
+        <option value="russian">Русский</option>
+        <option value="dialect1">Шуганский диалект</option>
+        <option value="dialect2">upcoming soon</option>
+      </select>
+      <select id="targetLang">
         <option value="russian">Русский</option>
         <option value="dialect1">Шуганский диалект</option>
         <option value="dialect2">upcoming soon</option>
@@ -97,18 +126,9 @@
     <textarea id="inputText" placeholder="Введите текст..."></textarea>
   </div>
 
-  <div class="center-button-container">
-    <button onclick="translateText()">Перевести</button>
-  </div>
+  <button onclick="translateText()">Перевести</button>
 
   <div class="block">
-    <div class="language-selectors">
-      <select id="targetLang">
-        <option value="russian">Русский</option>
-        <option value="dialect1">Шуганский диалект</option>
-        <option value="dialect2">upcoming soon</option>
-      </select>
-    </div>
     <textarea id="outputText" readonly class="output" placeholder="Перевод будет здесь..."></textarea>
   </div>
 </div>
@@ -260,6 +280,7 @@ function translateText() {
 
   document.getElementById('outputText').value = translated;
 }
+/* Здесь оставляешь свой translateText() и словарь dictionary */
 </script>
 
 </body>
