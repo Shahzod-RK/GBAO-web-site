@@ -134,9 +134,71 @@ button:hover {
     <textarea id="outputText" readonly class="output" placeholder="Перевод будет здесь..."></textarea>
   </div>
 </div>
-
 <script>
 const dictionary = {
+
+    "hello" : { "russian": "привет", "dialect1": "Salum", "dialect2": ""},
+    "How_are_you" : { "russian": "как дела", "dialect1": "Carang", "dialect2": ""},
+    "What_are_you_doing" : { "russian": "что делаешь", "dialect1": "chireta", "dialect2": ""},
+
+
+    "i": { "russian": "я", "dialect1": "oz", "dialect2": "" },
+    "you_sg": { "russian": "ты", "dialect1": "to", "dialect2": "" },
+    "he": { "russian": "он", "dialect1": "йo", "dialect2": "" },
+    "she": { "russian": "она", "dialect1": "ya", "dialect2": "" },
+    "we": { "russian": "мы", "dialect1": "mash", "dialect2": "" },
+    "you_pl": { "russian": "вы", "dialect1": "tama", "dialect2": "" },
+    "they": { "russian": "они", "dialect1": "wath", "dialect2": "" },
+
+    "this_is": { "russian": "это", "dialect1": "эd", "dialect2": "" },
+    "that": { "russian": "тот", "dialect1": "yo", "dialect2": "" },
+    "this": { "russian": "этот", "dialect1": "ed", "dialect2": "" },
+
+    "such": { "russian": "такой", "dialect1": "desga", "dialect2": "" },
+    "which": { "russian": "какой", "dialect1": "цarangen", "dialect2": "" },
+    "who": { "russian": "кто", "dialect1": "chaй", "dialect2": "" },
+    "what": { "russian": "что", "dialect1": "chiz", "dialect2": "" },
+    "where": { "russian": "где", "dialect1": "kaй", "dialect2": "" },
+    "when": { "russian": "когда", "dialect1": "цawaxt", "dialect2": "" },
+    "why": { "russian": "почему", "dialect1": "chizҷat", "dialect2": "" },
+    "why_for": { "russian": "зачем", "dialect1": "chizҷat", "dialect2": "" },
+    "how": { "russian": "как", "dialect1": "цarang", "dialect2": "" },
+
+    "all": { "russian": "весь", "dialect1": "fok", "dialect2": "" },
+    "each": { "russian": "каждый", "dialect1": "archaйath", "dialect2": "" },
+    "other": { "russian": "другой", "dialect1": "ega", "dialect2": "" },
+    "same_other": { "russian": "иной", "dialect1": "ega", "dialect2": "" },
+
+    "most": { "russian": "самый", "dialect1": "sar", "dialect2": "" },
+    "new": { "russian": "новый", "dialect1": "naw", "dialect2": "" },
+    "old": { "russian": "старый", "dialect1": "kina", "dialect2": "" },
+    "big": { "russian": "большой", "dialect1": "г-ola", "dialect2": "" },
+    "small": { "russian": "маленький", "dialect1": "dzolek", "dialect2": "" },
+    "good": { "russian": "хороший", "dialect1": "zyr", "dialect2": "" },
+    "bad": { "russian": "плохой", "dialect1": "bedarak", "dialect2": "" },
+
+    "first": { "russian": "первый", "dialect1": "yakom", "dialect2": "" },
+    "last": { "russian": "последний", "dialect1": "oxiry-nom", "dialect2": "" },
+    "early": { "russian": "ранний", "dialect1": "peroke", "dialect2": "" },
+    "late": { "russian": "поздний", "dialect1": "der", "dialect2": "" },
+
+    "many": { "russian": "много", "dialect1": "lap", "dialect2": "" },
+    "few": { "russian": "мало", "dialect1": "dys", "dialect2": "" },
+    "several": { "russian": "несколько", "dialect1": "dysath", "dialect2": "" },
+
+    "one": { "russian": "один", "dialect1": "iw", "dialect2": "" },
+    "two": { "russian": "два", "dialect1": "thoйy-n", "dialect2": "" },
+    "three": { "russian": "три", "dialect1": "araй", "dialect2": "" },
+    "four": { "russian": "четыре", "dialect1": "цavor", "dialect2": "" },
+    "five": { "russian": "пять", "dialect1": "pinz", "dialect2": "" },
+    "six": { "russian": "шесть", "dialect1": "ghogh", "dialect2": "" },
+    "seven": { "russian": "семь", "dialect1": "yvd", "dialect2": "" },
+    "eight": { "russian": "восемь", "dialect1": "vaght", "dialect2": "" },
+    "nine": { "russian": "девять", "dialect1": "now", "dialect2": "" },
+    "ten": { "russian": "десять", "dialect1": "this", "dialect2": "" },
+
+    "still": { "russian": "ещё", "dialect1": "dysga", "dialect2": "" },
+
     "month": { "russian": "месяц", "dialect1": "mest", "dialect2": "" },
     "week": { "russian": "неделя", "dialect1": "afta", "dialect2": "" },
     "hour": { "russian": "час", "dialect1": "soat", "dialect2": "" },
@@ -265,25 +327,39 @@ function translateWordToken(word, sourceLang, targetLang) {
 }
 
 function translateText() {
-  const text = document.getElementById('inputText').value;
+  const inputEl = document.getElementById('inputText');
+  const outputEl = document.getElementById('outputText');
+
+  let text = inputEl.value.trim(); // ❗ НЕ lowerCase
   const sourceLang = document.getElementById('sourceLang').value;
   const targetLang = document.getElementById('targetLang').value;
 
   if (!text) {
-    document.getElementById('outputText').value = "";
+    outputEl.value = "";
     return;
   }
 
-  // Заменяем только последовательности букв (Unicode) — остальные символы оставляем (пунктуация, пробелы)
-  // Используем replace с регулярным выражением \p{L}+ (любой буквенный символ): флаг u и g
-  const translated = text.replace(/\p{L}+/gu, (match) => {
-    return translateWordToken(match, sourceLang, targetLang);
-  });
+  // 🔹 1. Сначала переводим ФРАЗЫ
+for (const key in dictionary) {
+  const entry = dictionary[key];
+  const src = entry[sourceLang];
+  const trg = entry[targetLang];
 
-  document.getElementById('outputText').value = translated;
+  if (src && trg && src.includes(" ")) {
+    const escaped = src.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`(^|\\s)${escaped}(?=\\s|$|[.,!?])`, "giu");
+
+    text = text.replace(regex, (match) => {
+      const leadingSpace = match.startsWith(" ") ? " " : "";
+      return leadingSpace + matchCapitalization(src, trg);
+    });
+  }
 }
-/* Здесь оставляешь свой translateText() и словарь dictionary */
-</script>
 
+  outputEl.value = text;
+}
+
+</script>
 </body>
 </html>
+
