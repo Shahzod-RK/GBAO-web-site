@@ -25,7 +25,6 @@ body {
     gap: 10px;
 }
 
-/* Селекторы языка */
 .language-selectors {
     display: flex;
     justify-content: space-between;
@@ -40,7 +39,6 @@ body {
     border: 1px solid #ccc;
 }
 
-/* Поля ввода и вывода */
 textarea {
     width: 95%;
     font-size: 14px;
@@ -51,7 +49,6 @@ textarea {
     min-height: 120px;
 }
 
-/* Кнопка перевода */
 button {
     width: 100%;
     padding: 12px;
@@ -68,40 +65,18 @@ button:hover {
     background-color: #3367D6;
 }
 
-/* Блоки текста */
 .block {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-/* Переводной текст */
 .output {
     background: #fff;
     overflow-y: auto;
     white-space: pre-wrap;
 }
 
-/* Иконка обмена языками */
-.swap-button {
-    align-self: center;
-    margin: 5px 0;
-    background: #f1f3f4;
-    border: none;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.swap-button:hover {
-    background: #e0e0e0;
-}
-
-/* Мобильная оптимизация для очень маленьких экранов */
 @media(max-width: 360px){
     textarea { font-size: 12px; padding: 8px; min-height: 100px; }
     select { font-size: 12px; padding: 6px; }
@@ -134,14 +109,14 @@ button:hover {
     <textarea id="outputText" readonly class="output" placeholder="Перевод будет здесь..."></textarea>
   </div>
 </div>
-<script>
-const dictionary = {
 
+<script>
+// ====== Словарь ======
+const dictionary = {
     "hello" : { "russian": "привет", "dialect1": "Salum", "dialect2": ""},
     "How_are_you" : { "russian": "как дела", "dialect1": "Carang", "dialect2": ""},
     "What_are_you_doing" : { "russian": "что делаешь", "dialect1": "chireta", "dialect2": ""},
-
-
+    
     "i": { "russian": "я", "dialect1": "oz", "dialect2": "" },
     "you_sg": { "russian": "ты", "dialect1": "to", "dialect2": "" },
     "he": { "russian": "он", "dialect1": "йo", "dialect2": "" },
@@ -284,82 +259,82 @@ const dictionary = {
     "plant": { "russian": "растение", "dialect1": "sabzavot", "dialect2": "" },
     "flower": { "russian": "цветок", "dialect1": "gul", "dialect2": "" },
     "animal": { "russian": "животное", "dialect1": "aйvy-n", "dialect2": "" }
+    
+    
+
 };
 
-// Вспомог: сохранить заглавную букву
+// ====== Сохранение заглавной буквы ======
 function matchCapitalization(orig, translated) {
-  if (!orig) return translated;
-  // если первая буква в верхнем регистре — сделать так же
-  const first = orig.codePointAt(0);
-  const isUpper = orig[0] !== orig[0].toLowerCase();
-  if (isUpper) {
-    return translated[0].toUpperCase() + translated.slice(1);
-  }
-  return translated;
+    if (!orig || !translated) return translated;
+    if (orig[0] !== orig[0].toLowerCase()) {
+        return translated[0].toUpperCase() + translated.slice(1);
+    }
+    return translated;
 }
 
+// ====== Перевод слова ======
 function translateWordToken(word, sourceLang, targetLang) {
-  const lower = word.toLowerCase();
-
-  // 1) сначала попробуем найти именно как entry[sourceLang]
-  for (const key in dictionary) {
-    const entry = dictionary[key];
-    if (entry[sourceLang] && entry[sourceLang].toLowerCase() === lower) {
-      // нашли — переводим в target
-      const res = entry[targetLang] || entry.russian || entry[sourceLang];
-      return matchCapitalization(word, res);
+    const lower = word.toLowerCase();
+    for (const key in dictionary) {
+        const entry = dictionary[key];
+        if (entry[sourceLang] && entry[targetLang] &&
+            entry[sourceLang].toLowerCase() === lower) {
+            return matchCapitalization(word, entry[targetLang]);
+        }
     }
-  }
-
-  // 2) если не нашли — попробуем найти в любом языке (авто-детект слова)
-  for (const key in dictionary) {
-    const entry = dictionary[key];
-    for (const lang in entry) {
-      if (entry[lang] && entry[lang].toLowerCase() === lower) {
-        const res = entry[targetLang] || entry.russian || entry[lang];
-        return matchCapitalization(word, res);
-      }
-    }
-  }
-
-  // 3) не найдено — вернуть оригинал
-  return word;
+    return word;
 }
 
+// ====== Основная функция перевода ======
 function translateText() {
-  const inputEl = document.getElementById('inputText');
-  const outputEl = document.getElementById('outputText');
+    const inputEl = document.getElementById("inputText");
+    const outputEl = document.getElementById("outputText");
+    let text = inputEl.value;
+    const sourceLang = document.getElementById("sourceLang").value;
+    const targetLang = document.getElementById("targetLang").value;
 
-  let text = inputEl.value.trim(); // ❗ НЕ lowerCase
-  const sourceLang = document.getElementById('sourceLang').value;
-  const targetLang = document.getElementById('targetLang').value;
+    if (!text.trim()) {
+        outputEl.value = "";
+        return;
+    }
 
-  if (!text) {
-    outputEl.value = "";
-    return;
-  }
+    // 1️⃣ Защита фраз
+    const protectedPhrases = [];
+    let index = 0;
 
-  // 🔹 1. Сначала переводим ФРАЗЫ
-for (const key in dictionary) {
-  const entry = dictionary[key];
-  const src = entry[sourceLang];
-  const trg = entry[targetLang];
+    for (const key in dictionary) {
+        const entry = dictionary[key];
+        const src = entry[sourceLang];
+        const trg = entry[targetLang];
 
-  if (src && trg && src.includes(" ")) {
-    const escaped = src.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(`(^|\\s)${escaped}(?=\\s|$|[.,!?])`, "giu");
+        if (src && trg && src.includes(" ")) {
+            const escaped = src.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const regex = new RegExp(`(^|\\s|[.,!?])${escaped}(?=\\s|$|[.,!?])`, "giu");
 
-    text = text.replace(regex, (match) => {
-      const leadingSpace = match.startsWith(" ") ? " " : "";
-      return leadingSpace + matchCapitalization(src, trg);
+            text = text.replace(regex, (match, p1) => {
+                const token = `@@@${index}@@@`;
+                protectedPhrases.push(matchCapitalization(match.trim(), trg));
+                index++;
+                return (p1 || "") + token;
+            });
+        }
+    }
+
+    // 2️⃣ Перевод оставшихся слов
+    text = text.replace(/\p{L}+/gu, (match) => {
+        return translateWordToken(match, sourceLang, targetLang);
     });
-  }
-}
 
-  outputEl.value = text;
-}
+    // 3️⃣ Вставка фраз обратно
+    protectedPhrases.forEach((phrase, i) => {
+        const token = `@@@${i}@@@`;
+        text = text.replace(token, phrase);
+    });
 
+    outputEl.value = text;
+}
 </script>
+
 </body>
 </html>
-
