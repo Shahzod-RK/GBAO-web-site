@@ -119,8 +119,21 @@ html, body {
   margin-top: 20px;
 }
 
-/* МОБИЛЬНАЯ ВЕРСИЯ */
 @media screen and (max-width: 768px) {
+
+  .nav {
+    flex-direction: row; /* оставляем все в одной линии */
+    flex-wrap: wrap;     /* переносит ссылки на новую строку только если не помещаются */
+    justify-content: center;
+    gap: 10px;           /* уменьшаем расстояние между ссылками */
+  }
+
+  .nav a {
+    padding: 8px 12px;   /* чуть меньше, чтобы все помещалось */
+    font-size: 14px;
+  }
+
+
   .card {
     padding: 20px;
   }
@@ -214,3 +227,4 @@ html, body {
 
 </body>
 </html>
+
