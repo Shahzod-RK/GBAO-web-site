@@ -53,6 +53,7 @@ html, body {
 
 .nav a:hover {
   background-color: #306acb;
+  color: white;
   transform: scale(1.05);
 }
 
@@ -94,6 +95,8 @@ html, body {
   font-size: 18px;
   opacity: .7;
   color: #333;
+  line-height: 1.6;
+  max-width: 520px;
 }
 
 /* ВЫРЕЗАННАЯ КАРТИНКА */
@@ -112,40 +115,8 @@ html, body {
   position: relative;
 }
 
+/* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ */
 @media screen and (max-width: 768px) {
-
-  .card {
-    flex-direction: column;
-  }
-
-  /* 1. ТЕКСТ ПРО ГБАО */
-  .text-main {
-    order: 1;
-    text-align: center;
-  }
-
-  /* 2. КАРТИНКА */
-  .image-cut {
-    order: 2;
-    margin: 16px 0;
-  }
-
-  /* 3. ТЕКСТ ПРО САЙТ */
-  .text-site {
-    order: 3;
-    text-align: center;
-  }  
-
-  
-  /* ТЕКСТ СНИЗУ */
-  .text {
-    order: 2;
-    margin-top: 16px;
-  }
-
-  .text p {
-        max-width: 100%;
-    }
 
   .card {
     flex-direction: column;
@@ -153,14 +124,27 @@ html, body {
     padding: 24px;
   }
 
-  /* ТЕКСТ СВЕРХУ */
-  .text {
-    max-width: 100%;
+  /* Порядок блоков на телефоне */
+  .text-main {
+    order: 1;
     text-align: center;
     margin-bottom: 16px;
   }
 
-  /* УМЕНЬШАЕМ ТЕКСТ */
+  .image-cut {
+    order: 2;
+    width: 100%;
+    height: 260px;
+    margin: 16px 0;
+  }
+
+  .text-site {
+    order: 3;
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  /* Уменьшаем текст для телефона */
   .text span {
     font-size: 12px;
     letter-spacing: 3px;
@@ -173,26 +157,9 @@ html, body {
 
   .text p {
     font-size: 15px;
+    max-width: 100%;
   }
-
-  /* ИЗОБРАЖЕНИЕ СНИЗУ */
-  .image-cut {
-    width: 100%;
-    height: 260px;
-    margin-top: 10px;
-  }
-
-  .nav {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-.text p {
-  line-height: 1.6;
-  max-width: 520px;
 }
-
-
 </style>
 </head>
 
@@ -211,31 +178,31 @@ html, body {
 <!-- Параллакс-секция с карточкой -->
 <section class="parallax">
   <div class="card">
-  <div class="text text-main">
-  <span>Добро пожаловать</span>
-  <h1>Горно-Бадахшанская автономная область</h1>
-  <p>
-    Горно-Бадахшанская автономная область — уникальный регион с богатой историей,
-    культурным разнообразием и впечатляющей природой, расположенный в горах Памира.
-  </p>
-</div>
 
-<div class="image-cut"></div>
+    <!-- ТЕКСТ ПРО ГБАО -->
+    <div class="text text-main">
+      <span>Добро пожаловать</span>
+      <h1>Горно-Бадахшанская автономная область</h1>
+      <p>
+        Горно-Бадахшанская автономная область — уникальный регион с богатой историей,
+        культурным разнообразием и впечатляющей природой, расположенный в горах Памира.
+      </p>
+    </div>
 
-<div class="text text-site">
-  <p>
-    Этот сайт создан для знакомства с регионом, его прошлым, традициями и
-    географическими особенностями, а также для использования полезных инструментов.
-    Проект направлен на сохранение и распространение знаний о ГБАО.
-  </p>
-</div>
-
-
+    <!-- КАРТИНКА -->
     <div class="image-cut"></div>
+
+    <!-- ТЕКСТ ПРО САЙТ -->
+    <div class="text text-site">
+      <p>
+        Этот сайт создан для знакомства с регионом, его прошлым, традициями и
+        географическими особенностями, а также для использования полезных инструментов.
+        Проект направлен на сохранение и распространение знаний о ГБАО.
+      </p>
+    </div>
+
   </div>
 </section>
 
 </body>
 </html>
-
-
