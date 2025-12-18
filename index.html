@@ -113,7 +113,23 @@ html, body {
 }
 
 @media screen and (max-width: 768px) {
-    .text p {
+  
+  .card {
+    flex-direction: column;
+  }
+
+  /* КАРТИНКА СВЕРХУ */
+  .image-cut {
+    order: 1;
+  }
+
+  /* ТЕКСТ СНИЗУ */
+  .text {
+    order: 2;
+    margin-top: 16px;
+  }
+
+  .text p {
         max-width: 100%;
     }
 
@@ -200,3 +216,4 @@ html, body {
 
 </body>
 </html>
+
